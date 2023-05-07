@@ -1,7 +1,14 @@
+<script>
+import { IonPage } from "@ionic/vue";
+export default {
+  components: { IonPage },
+};
+</script>
+
 <template>
-  <div>
+  <ion-page>
     <h2>About Page</h2>
-  </div>
+  </ion-page>
 </template>
 
 <style>

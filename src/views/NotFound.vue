@@ -1,15 +1,15 @@
-<template>
-  <div>
-    <h2>Pagina no encontrada</h2>
-  </div>
-</template>
-
 <script>
+import { IonPage } from "@ionic/vue";
 export default {
-
-}
+  components: { IonPage },
+};
 </script>
 
-<style>
+<template>
+  <ion-page>
+    <h2>Pagina no encontrada</h2>
+  </ion-page>
+</template>
 
+<style>
 </style>

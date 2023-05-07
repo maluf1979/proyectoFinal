@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <ion-page>
     <h2>Paquetes</h2>
     <button @click="irHome">Ir a Home</button>
-  </div>
+  </ion-page>
 </template>
 
 <script>
+import { IonPage } from "@ionic/vue";
 export default {
+  components: { IonPage },
   methods: {
     irHome() {
-      this.$router.push("/HomeView");
+      this.$router.push("/home");
     },
   },
 };

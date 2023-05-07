@@ -1,6 +1,8 @@
 //Aca van las rutas de la aplicacion, las cuales se cargan en APP.vue
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import Paquetes from "../views/Paquetes.vue";//Importo Paquetes.vue
+import NotFound from "../views/NotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +20,16 @@ const router = createRouter({
       // que se carga de forma diferida (lazy-loaded) cuando se visita la ruta.
       component: () => import("../views/AboutView.vue"),
     },
+    { //Cargo la Ruta.
+      path: "/paquetes",
+      name: "paquetes",
+      component: Paquetes,
+    },
+    {
+      path:'/:pathMatch(.*)*',
+      name:"NotFound",
+      component: NotFound
+      },
   ],
 });
 

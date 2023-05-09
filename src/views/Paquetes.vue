@@ -1,5 +1,7 @@
 <template>
-  <ion-page>
+  <ion-page style="margin-top: 50px">
+    Destino: <input type="string" v-model="filtro">
+    <ion-button v-on:click="filtrar">Buscar Destino</ion-button>
     <ion-content>
       <ion-grid>
         <ion-row>
@@ -59,6 +61,7 @@ export default {
   },
   data() {
     return {
+      filtro:"",
       paquetes: [
         {
           Transporte: "Aereo",
@@ -156,32 +159,42 @@ export default {
     };
   },
   setup() {
-      const presentAlert = async () => {
-        const alert = await alertController.create({
-          header: 'Estas seguro/a?',
-          cssClass: 'custom-alert',
-          buttons: [
-            {
-              text: 'No',
-              cssClass: 'alert-button-cancel',
-            },
-            {
-              text: 'Si',
-              cssClass: 'alert-button-confirm',
-            },
-          ],
-        });
+    const presentAlert = async () => {
+      const alert = await alertController.create({
+        header: "Estas seguro/a?",
+        cssClass: "custom-alert",
+        buttons: [
+          {
+            text: "No",
+            cssClass: "alert-button-cancel",
+          },
+          {
+            text: "Si",
+            cssClass: "alert-button-confirm",
+          },
+        ],
+      });
 
-        await alert.present();
-      };
+      await alert.present();
+    };
 
-      return { presentAlert };
-    },
-  methods:{
-    reservar(){
+    return { presentAlert };
+  },
+  methods: {
+    reservar() {
       alert("Reserva realizada, destino agregado al carrito");
-    }
+    },
+
+    filtrar() {
+  if (this.filtro === "") {
+    return;
   }
+
+  this.paquetes = this.paquetes.filter((p) =>
+    p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
+  );
+}
+  },
 };
 </script>
 
@@ -191,37 +204,36 @@ ion-card {
 }
 
 ion-alert.custom-alert {
-    --backdrop-opacity: 0.7;
-  }
+  --backdrop-opacity: 0.7;
+}
 
-  .custom-alert .alert-button-group {
-    padding: 8px;
-  }
+.custom-alert .alert-button-group {
+  padding: 8px;
+}
 
-  button.alert-button.alert-button-confirm {
-    background-color: var(--ion-color-success);
-    color: var(--ion-color-success-contrast);
-  }
+button.alert-button.alert-button-confirm {
+  background-color: var(--ion-color-success);
+  color: var(--ion-color-success-contrast);
+}
 
-  .md button.alert-button.alert-button-confirm {
-    border-radius: 4px;
-  }
+.md button.alert-button.alert-button-confirm {
+  border-radius: 4px;
+}
 
-  .ios .custom-alert button.alert-button {
-    border: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2);
-  }
+.ios .custom-alert button.alert-button {
+  border: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2);
+}
 
-  .ios button.alert-button.alert-button-cancel {
-    border-right: 0;
-    border-bottom-left-radius: 13px;
-    border-top-left-radius: 13px;
-  }
+.ios button.alert-button.alert-button-cancel {
+  border-right: 0;
+  border-bottom-left-radius: 13px;
+  border-top-left-radius: 13px;
+}
 
-  .ios button.alert-button.alert-button-confirm {
-    border-bottom-right-radius: 13px;
-    border-top-right-radius: 13px;
-  }
-
+.ios button.alert-button.alert-button-confirm {
+  border-bottom-right-radius: 13px;
+  border-top-right-radius: 13px;
+}
 </style>
 
 

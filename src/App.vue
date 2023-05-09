@@ -1,6 +1,7 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import { IonApp, IonHeader } from "@ionic/vue";
+
 export default {
   components: { IonApp, IonHeader },
 };
@@ -8,7 +9,7 @@ export default {
 
 <template>
   <ion-app>
-    <ion-header>
+    <ion-header style="background-color: white;">
       <RouterLink to="/home">Home|</RouterLink>
       <RouterLink to="/about">About|</RouterLink>
       <RouterLink to="/paquetes">Paquetes</RouterLink>

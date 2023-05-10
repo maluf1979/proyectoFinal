@@ -29,11 +29,13 @@
       </ion-grid>
     </ion-content>
     <ion-card-content>
-      Transporte: <input type="text" v-model="paquetes.Transporte" /> Destino:
-      <input type="text" v-model="paquetes.Destino" /> Fecha Partida:
-      <input type="text" v-model="paquetes.FechaPartida" /> Fecha Regreso:
-      <input type="text" v-model="paquetes.FechaRegreso" /> Dias:
-      <input type="text" v-model="paquetes.Dias" />
+      Transporte:
+      <input type="text" v-model="paquetes.Transporte" /> Destino:<input
+        type="text"
+        v-model="paquetes.Destino"
+      />
+      Fecha Partida:<input type="date" v-model="paquetes.FechaPartida" /> Fecha
+      Regreso:<input type="date" v-model="paquetes.FechaRegreso" /> Dias:<input type="number" :value="paquetes.Dias = duracion" disabled>
       <ion-button v-on:click="agregarDestino">Agregar Destino</ion-button>
     </ion-card-content>
   </ion-page>
@@ -187,6 +189,15 @@ export default {
     };
 
     return { presentAlert };
+  },
+  computed: {
+    duracion() {
+      const fechaPartida = new Date(this.paquetes.FechaPartida);
+      const fechaRegreso = new Date(this.paquetes.FechaRegreso);
+      const duracionMs = fechaRegreso - fechaPartida;
+      const duracionDias = duracionMs / (1000 * 60 * 60 * 24);
+      return duracionDias;
+    },
   },
   methods: {
     reservar() {

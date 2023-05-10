@@ -1,6 +1,6 @@
 <template>
   <ion-page style="margin-top: 50px">
-    Destino: <input type="string" v-model="filtro">
+    Destino: <input type="string" v-model="filtro" />
     <ion-button v-on:click="filtrar">Buscar Destino</ion-button>
     <ion-content>
       <ion-grid>
@@ -28,6 +28,14 @@
         </ion-row>
       </ion-grid>
     </ion-content>
+    <ion-card-content>
+      Transporte: <input type="text" v-model="paquetes.Transporte" /> Destino:
+      <input type="text" v-model="paquetes.Destino" /> Fecha Partida:
+      <input type="text" v-model="paquetes.FechaPartida" /> Fecha Regreso:
+      <input type="text" v-model="paquetes.FechaRegreso" /> Dias:
+      <input type="text" v-model="paquetes.Dias" />
+      <ion-button v-on:click="agregarDestino">Agregar Destino</ion-button>
+    </ion-card-content>
   </ion-page>
 </template>
 
@@ -61,7 +69,7 @@ export default {
   },
   data() {
     return {
-      filtro:"",
+      filtro: "",
       paquetes: [
         {
           Transporte: "Aereo",
@@ -186,14 +194,17 @@ export default {
     },
 
     filtrar() {
-  if (this.filtro === "") {
-    return;
-  }
+      if (this.filtro === "") {
+        return;
+      }
 
-  this.paquetes = this.paquetes.filter((p) =>
-    p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
-  );
-}
+      this.paquetes = this.paquetes.filter((p) =>
+        p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
+      );
+    },
+    agregarDestino() {
+      this.paquetes.push({ ...this.paquetes });
+    },
   },
 };
 </script>

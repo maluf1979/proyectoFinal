@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import HomeView from "../views/HomeView.vue";
 import Paquetes from "../views/Paquetes.vue";//Importo Paquetes.vue
 import NotFound from "../views/NotFound.vue";
+import AgregarPaquete from "../views/AgregarPaquete.vue";
+import BuscarVuelos from "../views/BuscarVuelosView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,12 +26,24 @@ const router = createRouter({
       path: "/paquetes",
       name: "paquetes",
       component: Paquetes,
+
+    },
+    {
+      path: "/agregarPaquete",
+      name: "agregarPaquete",
+      component: AgregarPaquete,
+    },
+    {
+      path: "/buscarVuelos",
+      name: "buscarVuelos",
+      component: BuscarVuelos,
     },
     {
       path:'/:pathMatch(.*)*',
       name:"NotFound",
       component: NotFound
       },
+
   ],
 });
 

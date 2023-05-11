@@ -5,13 +5,7 @@
     <ion-content>
       <ion-grid>
         <ion-row>
-          <ion-col
-            v-for="(p, index) in paquetes"
-            :key="index"
-            size="12"
-            size-md="6"
-            size-lg="4"
-          >
+          <ion-col v-for="(p, index) in paquetes" :key="index" size="12" size-md="6" size-lg="4">
             <ion-card>
               <ion-card-header>
                 <ion-card-title>{{ p.Destino }}</ion-card-title>
@@ -29,39 +23,29 @@
       </ion-grid>
     </ion-content>
   </ion-page>
+
+
+
+
+
+
 </template>
 
 <script>
-import {
-  IonPage,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonButton,
-  IonAlert,
-  alertController,
-} from "@ionic/vue";
+//<AgregarPaquete @agregarPaquete="agregarPaquete"/>
+
+import {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton,IonAlert,alertController,} from "@ionic/vue";
+//import AgregarPaquete from '../views/AgregarPaquete.vue'
+//import Vue from 'vue';
+//import Vue from "/node_modules/.vite/deps/vue.js";
 
 export default {
-  components: {
-    IonPage,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
-    IonButton,
-    IonAlert,
-  },
+  props: ['paquete'],
+  components: {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton,IonAlert},
   data() {
     return {
       filtro:"",
+      paquete: {},
       paquetes: [
         {
           Transporte: "Aereo",
@@ -84,7 +68,7 @@ export default {
           FechaRegreso: "26/06/2023",
           Dias: 6,
         },
-
+/* 
         {
           Transporte: "Aereo",
           Destino: "Buenos Aires",
@@ -154,7 +138,7 @@ export default {
           FechaPartida: "01/03/2024",
           FechaRegreso: "06/03/2024",
           Dias: 5,
-        },
+        }, */
       ],
     };
   },
@@ -189,11 +173,16 @@ export default {
   if (this.filtro === "") {
     return;
   }
-
   this.paquetes = this.paquetes.filter((p) =>
     p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
   );
-}
+  },
+    agregarPaquete(paquete){  
+      //this.paquetes.push(paquete);
+      this.paquete = JSON.parse(this.$route.query.paquete);
+      //this.paquete = JSON.parse(this.$route.params.paquete);
+      this.paquetes.push(paquete)
+    }
   },
 };
 </script>

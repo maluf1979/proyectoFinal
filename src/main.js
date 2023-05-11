@@ -17,6 +17,10 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
+/* import Vue from "/node_modules/.vite/deps/vue.js";
+
+Vue.$eventBus = new Vue(); */
+
 const app = createApp(App)
 app.use(createPinia())
 app.use(IonicVue)

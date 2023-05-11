@@ -12,7 +12,9 @@ export default {
     <ion-header style="background-color: white;">
       <RouterLink to="/home">Home|</RouterLink>
       <RouterLink to="/about">About|</RouterLink>
-      <RouterLink to="/paquetes">Paquetes</RouterLink>
+      <RouterLink to="/paquetes">Paquetes|</RouterLink>
+      <RouterLink to="/agregarPaquete">Agregar Paquetes |</RouterLink>
+      <RouterLink to="/buscarVuelos">Buscar Vuelos</RouterLink>
     </ion-header>
     <RouterView />
   </ion-app>

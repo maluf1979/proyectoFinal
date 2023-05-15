@@ -17,17 +17,62 @@ export default {
 
 <template>
   <ion-app>
-    <ion-header style="background-color: white">
-      <RouterLink to="/">Home|</RouterLink>
-      <RouterLink to="/about">About|</RouterLink>
-      <RouterLink v-if="isLogin" to="/paquetes">Paquetes|</RouterLink>
-      <RouterLink v-if="!isLogin" to="/login">Login|</RouterLink>
-      <RouterLink v-if="isLogin" to="/logout">Logout|</RouterLink>
-      Usuario: {{ user.email }}
+    <ion-header class="header">
+      <nav>
+        <ul>
+          <li><RouterLink to="/">Home</RouterLink></li>
+          <li><RouterLink to="/about">About</RouterLink></li>
+          <li v-if="isLogin">
+            <RouterLink to="/paquetes">Paquetes</RouterLink>
+          </li>
+          <li v-if="!isLogin"><RouterLink to="/login">Login</RouterLink></li>
+          <li v-if="isLogin" class="logout">
+            <RouterLink to="/logout" @click="confirmLogout">Logout</RouterLink>
+          </li>
+        </ul>
+      </nav>
+      <div class="user-info" v-if="isLogin">Usuario: {{ user.email }}</div>
     </ion-header>
     <RouterView />
   </ion-app>
 </template>
+<style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007aff;
+  color: white;
+  height: 4rem;
+  padding: 0 1rem;
+}
 
-<style>
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+nav ul li a:hover {
+  background-color: #0062cc;
+}
+
+.user-info {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
 </style>

@@ -29,14 +29,9 @@ export default {
     },
     methods:{
         filtrarPorDestinoFecha(){
-            if (this.vuelo === {}) {
-            return;
+            alert("Filtrado")
         }
-        //this.paquetes = this.paquetes.filter((p) =>
-        //p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
-        );
 
-        }
     }
 
 }

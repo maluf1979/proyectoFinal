@@ -1,13 +1,15 @@
 <template>
   <ion-page style="margin-top: 50px">
+  
     Destino: <input type="string" v-model="filtro" />
     <ion-button v-on:click="filtrar">Buscar Destino</ion-button>
+  
     <ion-content>
       <ion-grid>
         <ion-row>
           <ion-col
-            v-for="(p, index) in paquetes"
-            :key="index"
+            v-for="p in paquetes"
+            :key="p.Destino"
             size="12"
             size-md="6"
             size-lg="4"
@@ -17,11 +19,14 @@
                 <ion-card-title>{{ p.Destino }}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
-                <p>Transporte: {{ p.Transporte }}</p>
+                <p>Transporte: {{ p.Tipo }}</p>
                 <p>Fecha de partida: {{ p.FechaPartida }}</p>
                 <p>Fecha de regreso: {{ p.FechaRegreso }}</p>
-                <p>Duración en días: {{ p.Dias }}</p>
+                <p>Duración en días: {{ p.CantidadDias }}</p>
+                <p>Precio: {{ p.Precio }}</p>
                 <ion-button @click="presentAlert">Reservar</ion-button>
+                 <ion-button @click="eliminarPaquete(p.id)">Eliminar</ion-button>
+                 <ion-button @click="modificarPaquete(p.id)">Modificar</ion-button>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -29,14 +34,13 @@
       </ion-grid>
     </ion-content>
     <ion-card-content>
-      Transporte:
-      <input type="text" v-model="paquetes.Transporte" /> Destino:<input
-        type="text"
-        v-model="paquetes.Destino"
-      />
-      Fecha Partida:<input type="date" v-model="paquetes.FechaPartida" /> Fecha
-      Regreso:<input type="date" v-model="paquetes.FechaRegreso" /> Dias:<input type="number" :value="paquetes.Dias = duracion" disabled>
-      <ion-button v-on:click="agregarDestino">Agregar Destino</ion-button>
+      Transporte:<input type="text" v-model="paquete.Tipo" /> 
+      Destino:<input type="text" v-model="paquete.Destino"/>
+      Fecha Partida:<input type="date" v-model="paquete.FechaPartida" /> 
+      Fecha Regreso:<input type="date" v-model="paquete.FechaRegreso" /> 
+      Dias:<input type="number" :value="paquete.CantidadDias = duracion" disabled>
+      Precio:<input type="number" v-model="paquete.Precio" />
+      <ion-button @click="agregarDestino">Agregar Destino</ion-button>
     </ion-card-content>
   </ion-page>
 </template>
@@ -56,6 +60,8 @@ import {
   alertController,
 } from "@ionic/vue";
 
+import listaService from '../service/listaService';
+
 export default {
   components: {
     IonPage,
@@ -72,101 +78,12 @@ export default {
   data() {
     return {
       filtro: "",
-      paquetes: [
-        {
-          Transporte: "Aereo",
-          Destino: "Cancun",
-          FechaPartida: "10/05/2023",
-          FechaRegreso: "15/05/2023",
-          Dias: 5,
-        },
-        {
-          Transporte: "Crucero",
-          Destino: "Caribe",
-          FechaPartida: "05/08/2023",
-          FechaRegreso: "12/08/2023",
-          Dias: 7,
-        },
-        {
-          Transporte: "Terrestre",
-          Destino: "Puerto Vallarta",
-          FechaPartida: "20/06/2023",
-          FechaRegreso: "26/06/2023",
-          Dias: 6,
-        },
-
-        {
-          Transporte: "Aereo",
-          Destino: "Buenos Aires",
-          FechaPartida: "15/07/2023",
-          FechaRegreso: "25/07/2023",
-          Dias: 10,
-        },
-
-        {
-          Transporte: "Aereo",
-          Destino: "Roma",
-          FechaPartida: "01/08/2023",
-          FechaRegreso: "10/08/2023",
-          Dias: 9,
-        },
-
-        {
-          Transporte: "Terrestre",
-          Destino: "Playa del Carmen",
-          FechaPartida: "12/09/2023",
-          FechaRegreso: "16/09/2023",
-          Dias: 4,
-        },
-
-        {
-          Transporte: "Aereo",
-          Destino: "Nueva York",
-          FechaPartida: "20/10/2023",
-          FechaRegreso: "28/10/2023",
-          Dias: 8,
-        },
-
-        {
-          Transporte: "Terrestre",
-          Destino: "San Francisco",
-          FechaPartida: "15/11/2023",
-          FechaRegreso: "20/11/2023",
-          Dias: 5,
-        },
-        {
-          Transporte: "Aereo",
-          Destino: "Sidney",
-          FechaPartida: "15/12/2023",
-          FechaRegreso: "25/12/2023",
-          Dias: 10,
-        },
-
-        {
-          Transporte: "Terrestre",
-          Destino: "Las Vegas",
-          FechaPartida: "01/01/2024",
-          FechaRegreso: "05/01/2024",
-          Dias: 4,
-        },
-
-        {
-          Transporte: "Aereo",
-          Destino: "Tokio",
-          FechaPartida: "10/02/2024",
-          FechaRegreso: "20/02/2024",
-          Dias: 10,
-        },
-
-        {
-          Transporte: "Terrestre",
-          Destino: "Ciudad del Cabo",
-          FechaPartida: "01/03/2024",
-          FechaRegreso: "06/03/2024",
-          Dias: 5,
-        },
-      ],
+      paquetes: [],
+      paquete: {Tipo:'', Destino: '', FechaPartida:'',FechaRegreso:'',CantidadDias:'', Precio: 0}
     };
+  },
+  mounted() {
+    this.cargarLista()
   },
   setup() {
     const presentAlert = async () => {
@@ -192,8 +109,8 @@ export default {
   },
   computed: {
     duracion() {
-      const fechaPartida = new Date(this.paquetes.FechaPartida);
-      const fechaRegreso = new Date(this.paquetes.FechaRegreso);
+      const fechaPartida = new Date(this.paquete.FechaPartida);
+      const fechaRegreso = new Date(this.paquete.FechaRegreso);
       const duracionMs = fechaRegreso - fechaPartida;
       const duracionDias = duracionMs / (1000 * 60 * 60 * 24);
       return duracionDias;
@@ -213,12 +130,48 @@ export default {
         p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
       );
     },
-    agregarDestino() {
-      this.paquetes.push({ ...this.paquetes });
+    async agregarDestino() {
+      const paquete = {...this.paquete}
+      try {
+        await listaService.agregarElemento(paquete)
+        this.cargarLista()
+        this.paquete = {}
+      } catch (error) {
+        alert(error)
+        console.log(error);
+      }
+    },
+
+    async cargarLista() {
+      try {
+        this.paquetes = await listaService.cargarLista()
+      } catch (error) {
+        alert('error de conexion')
+      }
+    },
+
+    async eliminarPaquete(id) {
+      try {
+        await listaService.eliminarElemento(id)
+        this.cargarLista()
+      } catch (error) {
+        alert('error de conexion')
+      }
+    },
+
+    async modificarPaquete(id) {
+      const paquete = {...this.paquete}
+      try {
+        await listaService.modificarElemento(id,paquete)
+        this.cargarLista()
+      } catch (error) {
+        alert('error de conexion')
+      }
     },
   },
 };
 </script>
+
 
 <style>
 ion-card {

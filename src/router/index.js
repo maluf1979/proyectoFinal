@@ -1,7 +1,7 @@
 //Aca van las rutas de la aplicacion, las cuales se cargan en APP.vue
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import HomeView from "../views/HomeView.vue";
-import Paquetes from "../views/Paquetes.vue"; //Importo Paquetes.vue
+import Paquetes from "../views/PaquetesView.vue"; //Importo Paquetes.vue
 import NotFound from "../views/NotFound.vue";
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'

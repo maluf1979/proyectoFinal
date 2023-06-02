@@ -39,7 +39,7 @@ export default {
   },
   async buscarPaquete(id){
     try{
-      const response = apiClient.get("/paquetes/" + id)
+      const response = await apiClient.get("/paquetes/" + id)
       return response.data;
     } catch (error) {
       throw "Error de conexion";

@@ -26,7 +26,6 @@ export default {
           <li ><RouterLink to="/paquetes">Paquetes</RouterLink></li>
           <li v-if="!isLogin"><RouterLink to="/login">Login</RouterLink></li>
           <li v-if="isLogin" class="logout"><RouterLink to="/logout" @click="confirmLogout">Logout</RouterLink></li>
-          <li v-if="isLogin"><RouterLink to="/reserva">Mi Reserva</RouterLink></li>
         </ul>
       </nav>
       <div class="user-info" v-if="isLogin">Usuario: {{ user.email }}</div>

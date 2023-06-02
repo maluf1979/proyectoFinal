@@ -2,6 +2,7 @@
   <ion-page>
     <ion-content>
       <ion-card-content>
+        <p>Destino: {{ reserva.Destino }}</p>
         <p>Transporte: {{ reserva.Tipo }}</p>
         <p>Fecha de partida: {{ reserva.FechaPartida }}</p>
         <p>Fecha de regreso: {{ reserva.FechaRegreso }}</p>

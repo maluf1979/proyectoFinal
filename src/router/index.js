@@ -4,7 +4,8 @@ import HomeView from "../views/HomeView.vue";
 import Paquetes from "../views/PaquetesView.vue"; //Importo Paquetes.vue
 import NotFound from "../views/NotFound.vue";
 import LoginView from '../views/LoginView.vue'
-import LogoutView from '../views/LogoutView.vue'
+import LogoutView from '../views/LogoutView.vue';
+import ReservaView from '../views/ReservaView.vue';
 import { useLoginStore } from '../stores/login'
 
 const router = createRouter({
@@ -28,7 +29,6 @@ const router = createRouter({
       path: "/paquetes",
       name: "paquetes",
       component: Paquetes,
-      meta: { RequireAuth: true },
     },
     {
       path: "/:pathMatch(.*)*",
@@ -44,6 +44,11 @@ const router = createRouter({
       path: "/logout",
       name: "logout",
       component: LogoutView,
+    },    {
+      path: "/reserva/:id",
+      name: "reserva",
+      component: ReservaView,
+      meta: { RequireAuth: true },
     },
   ],
 });

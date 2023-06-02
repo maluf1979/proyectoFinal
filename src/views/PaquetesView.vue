@@ -12,7 +12,7 @@
               <ion-card-header>
                 <ion-card-title>{{ p.Destino }}</ion-card-title>
               </ion-card-header>
-              <ion-card-content>
+              <ion-card-content @click="cargarPaquete(p.id)">
                 <p>Transporte: {{ p.Tipo }}</p>
                 <p>Fecha de partida: {{ p.FechaPartida }}</p>
                 <p>Fecha de regreso: {{ p.FechaRegreso }}</p>
@@ -78,7 +78,6 @@ export default {
     reservar(id) {
       if (confirm("¿Este es el paquete que quieres reservar?")) {
         this.$router.push("/reserva/" + id);
-        //this.$router.push({ name: '/reserva',params: id})
       } 
     },
 
@@ -124,22 +123,19 @@ export default {
       const paquete = {...this.paquete}
       try {
         await listaService.modificarElemento(id,paquete)
+        this.paquete= {}
         this.cargarLista()
       } catch (error) {
         alert('error de conexion')
       }
     },
-    /* async cargarPaquete(id){
-      this.mostrarInput = true;
-      //const paquete = {...this.paquete}
+    async cargarPaquete(id){
       try {
-        this.paquete = await listaService.cargarPaquete(id);
-        //alert("click en paquete");
+        this.paquete = await listaService.buscarPaquete(id)
       } catch (error) {
         alert('error de conexion')
       }
-      //this.paquete = {Tipo:p.Tipo, Destino: p.Destino, FechaPartida:p.fechaPartida,FechaRegreso:p.fechaRegreso,CantidadDias:p.CantidadDias, Precio: e.Precio}
-    }, */
+    }, 
   },
 };
 </script>

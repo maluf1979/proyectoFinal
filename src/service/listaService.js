@@ -45,12 +45,4 @@ export default {
       throw "Error de conexion";
     }
   },
-  async cargarPaquete(id){
-    try {
-      const response = await apiClient.get("/paquetes/" + id)
-      return response.data
-    } catch (error) {
-      throw "Error de conexion";
-    }
-  }
 };

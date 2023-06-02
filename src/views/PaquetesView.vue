@@ -7,13 +7,7 @@
     <ion-content>
       <ion-grid>
         <ion-row>
-          <ion-col
-            v-for="p in paquetes"
-            :key="p.Destino"
-            size="12"
-            size-md="6"
-            size-lg="4"
-          >
+          <ion-col v-for="p in paquetes" :key="p.Destino" size="12" size-md="6" size-lg="4">
             <ion-card>
               <ion-card-header>
                 <ion-card-title>{{ p.Destino }}</ion-card-title>
@@ -24,16 +18,16 @@
                 <p>Fecha de regreso: {{ p.FechaRegreso }}</p>
                 <p>Duración en días: {{ p.CantidadDias }}</p>
                 <p>Precio: {{ p.Precio }}</p>
-                <ion-button @click="presentAlert">Reservar</ion-button>
-                 <ion-button @click="eliminarPaquete(p.id)">Eliminar</ion-button>
-                 <ion-button @click="modificarPaquete(p.id)">Modificar</ion-button>
+                <ion-button @click="reservar(p.id)">Reservar</ion-button>
+                 <ion-button v-if="hasPermissions('admin')" @click="eliminarPaquete(p.id)">Eliminar</ion-button>
+                 <ion-button v-if="hasPermissions('admin')" @click="modificarPaquete(p.id)">Modificar</ion-button>
               </ion-card-content>
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-content>
-    <ion-card-content>
+    <ion-card-content  v-if="hasPermissions('admin')">
       Transporte:<input type="text" v-model="paquete.Tipo" /> 
       Destino:<input type="text" v-model="paquete.Destino"/>
       Fecha Partida:<input type="date" v-model="paquete.FechaPartida" /> 
@@ -46,66 +40,30 @@
 </template>
 
 <script>
-import {
-  IonPage,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonButton,
-  IonAlert,
-  alertController,
-} from "@ionic/vue";
-
+import {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle, IonCardContent, IonButton, IonAlert, alertController,} from "@ionic/vue";
 import listaService from '../service/listaService';
 
+import { storeToRefs } from "pinia";
+import { useLoginStore } from "../stores/login";
+
 export default {
-  components: {
-    IonPage,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
-    IonButton,
-    IonAlert,
-  },
+  components: {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton, IonAlert,},
   data() {
     return {
       filtro: "",
       paquetes: [],
-      paquete: {Tipo:'', Destino: '', FechaPartida:'',FechaRegreso:'',CantidadDias:'', Precio: 0}
+      paquete: {Tipo:'', Destino: '', FechaPartida:'',FechaRegreso:'',CantidadDias:'', Precio: 0},
     };
   },
   mounted() {
     this.cargarLista()
   },
   setup() {
-    const presentAlert = async () => {
-      const alert = await alertController.create({
-        header: "Estas seguro/a?",
-        cssClass: "custom-alert",
-        buttons: [
-          {
-            text: "No",
-            cssClass: "alert-button-cancel",
-          },
-          {
-            text: "Si",
-            cssClass: "alert-button-confirm",
-          },
-        ],
-      });
+    const store = useLoginStore();
+    const { isLogin } = storeToRefs(store);
+    const { hasPermissions } = store;
+    return { isLogin, hasPermissions };
 
-      await alert.present();
-    };
-
-    return { presentAlert };
   },
   computed: {
     duracion() {
@@ -117,8 +75,11 @@ export default {
     },
   },
   methods: {
-    reservar() {
-      alert("Reserva realizada, destino agregado al carrito");
+    reservar(id) {
+      if (confirm("¿Este es el paquete que quieres reservar?")) {
+        this.$router.push("/reserva/" + id);
+        //this.$router.push({ name: '/reserva',params: id})
+      } 
     },
 
     filtrar() {
@@ -168,6 +129,17 @@ export default {
         alert('error de conexion')
       }
     },
+    /* async cargarPaquete(id){
+      this.mostrarInput = true;
+      //const paquete = {...this.paquete}
+      try {
+        this.paquete = await listaService.cargarPaquete(id);
+        //alert("click en paquete");
+      } catch (error) {
+        alert('error de conexion')
+      }
+      //this.paquete = {Tipo:p.Tipo, Destino: p.Destino, FechaPartida:p.fechaPartida,FechaRegreso:p.fechaRegreso,CantidadDias:p.CantidadDias, Precio: e.Precio}
+    }, */
   },
 };
 </script>

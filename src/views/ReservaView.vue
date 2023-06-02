@@ -1,35 +1,40 @@
 <template>
   <ion-page>
-        <ion-card-content>
-                        <p>Transporte: {{ reserva.Tipo }}</p>
-                        <p>Fecha de partida: {{ reserva.FechaPartida }}</p>
-                        <p>Fecha de regreso: {{ reserva.FechaRegreso }}</p>
-                        <p>Duración en días: {{ reserva.CantidadDias }}</p>
-                        <p>Precio: {{ reserva.Precio }}</p>
-                    </ion-card-content>
-        </ion-page>
+    <ion-content>
+      <ion-card-content>
+        <p>Transporte: {{ reserva.Tipo }}</p>
+        <p>Fecha de partida: {{ reserva.FechaPartida }}</p>
+        <p>Fecha de regreso: {{ reserva.FechaRegreso }}</p>
+        <p>Duración en días: {{ reserva.CantidadDias }}</p>
+        <p>Precio: {{ reserva.Precio }}</p>
+      </ion-card-content>
+    </ion-content>
+  </ion-page>
 </template>
 
 <script>
-import { IonPage } from "@ionic/vue";
+import { IonPage, IonCardContent, IonContent } from "@ionic/vue";
 import listaService from "../service/listaService";
 
 export default {
-  components: { IonPage },
+  components: { IonPage, IonCardContent, IonContent },
   data() {
-    return{
-            reserva: {Tipo:'', Destino: '', FechaPartida:'',FechaRegreso:'',CantidadDias:'', Precio: 0},
-            id:0
-    }
+    return {
+      reserva: {Tipo: "",Destino: "",FechaPartida: "",FechaRegreso: "",CantidadDias: "", Precio: 0,},
+      id: 0,
+    };
   },
-    mounted() {
-      this.id=this.$route.params.id
-      this.cargarPaquete(this.id)
+  mounted() {
+    this.id = this.$route.params.id;
+    this.cargarPaquete(this.id);
   },
   methods: {
     async cargarPaquete(id) {
       try {
+        console.log(id);
+
         this.reserva = await listaService.buscarPaquete(id);
+        console.log(this.reserva);
       } catch (error) {
         alert("error de conexion");
       }

@@ -33,7 +33,9 @@ export default {
       </nav>
       <div class="user-info" v-if="isLogin">Usuario: {{ user.email }}</div>
     </ion-header>
+    <ion-content>
     <RouterView />
+    </ion-content>
   </ion-app>
 </template>
 <style scoped>

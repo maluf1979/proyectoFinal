@@ -1,5 +1,5 @@
 <template>
-  <ion-page style="margin-top: 70px">
+  <ion-page>
   
     Destino: <input type="string" v-model="filtro" />
     <ion-button v-on:click="filtrar">Buscar Destino</ion-button>

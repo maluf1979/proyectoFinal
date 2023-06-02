@@ -33,12 +33,12 @@ export default {
         this.usuario.passw == "123456"
       ) {
         this.login({ email: this.usuario.email, permissions: [] });
-        this.$router.push("/");
+        this.$router.push("/paquetes");
       } else if (
         this.usuario.email == "admin@test.com" &&
         this.usuario.passw == "123456"
       ) {
-        this.login({ email: this.usuario.email, permissions: ["config"] });
+        this.login({ email: this.usuario.email, permissions: ["admin"] });
         this.$router.push("/");
       } else {
         alert("Credenciales erroneas");

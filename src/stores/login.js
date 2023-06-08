@@ -18,7 +18,7 @@ export const useLoginStore = defineStore('login', {
             this.user = user
         },
         hasPermissions(access) {
-            return this.user.permissions.filter(p=>p==access).length > 0 ? true: false
+            return this.user.permiso == access
         }
     },
 })

@@ -82,14 +82,14 @@ export default {
     },
 
     filtrar() {
-      if (this.filtro === "") {
-        return;
-      }
-
       this.paquetes = this.paquetes.filter((p) =>
         p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
       );
+      if (this.filtro === "") {
+        this.cargarLista()
+      }
     },
+
     async agregarDestino() {
       const paquete = {...this.paquete}
       try {

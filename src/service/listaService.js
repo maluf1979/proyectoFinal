@@ -45,4 +45,12 @@ export default {
       throw "Error de conexion";
     }
   },
+  async getUsuario(email, passw){
+    try {
+      const response = await apiClient.get(`/usuarios?email=${email}&contrasenia=${passw}`)
+      return response.data;
+    } catch (error) {
+        throw "No encontrado"
+    }
+  }
 };

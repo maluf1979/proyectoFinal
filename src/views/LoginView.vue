@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import listaService from '../service/listaService.js';
 import { useLoginStore } from "../stores/login";
 
 export default {
@@ -25,12 +26,15 @@ export default {
     return { login };
   },
   methods: {
-    logear() {
+    async logear() {
       // consultar api por usuario
       // por hoy hardcodeamos
-      if (
-        this.usuario.email == "usuario@test.com" &&
-        this.usuario.passw == "123456"
+      
+      const user = await listaService.getUsuario(this.usuario.email, this.usuario.passw)
+      
+      try {
+        if (
+          user.length > 0
       ) {
         this.login({ email: this.usuario.email, permissions: [] });
         this.$router.push("/");
@@ -43,6 +47,12 @@ export default {
       } else {
         alert("Credenciales erroneas");
       }
+      } catch (error) {
+        alert(error)
+      }
+      
+      
+      
     },
   },
 };

@@ -18,7 +18,7 @@
                 <p>Fecha de regreso: {{ p.FechaRegreso }}</p>
                 <p>Duración en días: {{ p.CantidadDias }}</p>
                 <p>Precio: {{ p.Precio }}</p>
-                <ion-button @click="reservar(p.id)">Reservar</ion-button>
+                <ion-button  @click="reservar(p)">Reservar</ion-button>
                  <ion-button v-if="hasPermissions('admin')" @click="eliminarPaquete(p.id)">Eliminar</ion-button>
                  <ion-button v-if="hasPermissions('admin')" @click="modificarPaquete(p.id)">Modificar</ion-button>
               </ion-card-content>
@@ -41,10 +41,14 @@
 
 <script>
 import {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle, IonCardContent, IonButton, IonAlert, alertController,} from "@ionic/vue";
-import listaService from '../service/listaService';
+import listaService from '../service/paqueteService.js';
+import reservaService from '../service/reservaService.js'
+
+
 
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "../stores/login";
+
 
 export default {
   components: {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton, IonAlert,},
@@ -60,9 +64,9 @@ export default {
   },
   setup() {
     const store = useLoginStore();
-    const { isLogin } = storeToRefs(store);
-    const { hasPermissions } = store;
-    return { isLogin, hasPermissions };
+    const { isLogin, user } = storeToRefs(store);
+    const { hasPermissions} = store;
+    return { isLogin, hasPermissions,user };
 
   },
   computed: {
@@ -75,9 +79,10 @@ export default {
     },
   },
   methods: {
-    reservar(id) {
+    async reservar(paquete) {
       if (confirm("¿Este es el paquete que quieres reservar?")) {
-        this.$router.push("/reserva/" + id);
+        await reservaService.crearReserva(paquete, this.user.id)
+        this.$router.push("/reserva/" + paquete.id);
       } 
     },
 

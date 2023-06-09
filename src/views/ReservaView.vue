@@ -15,7 +15,7 @@
 
 <script>
 import { IonPage, IonCardContent, IonContent } from "@ionic/vue";
-import listaService from "../service/listaService";
+import listaService from "../service/paqueteService";
 
 export default {
   components: { IonPage, IonCardContent, IonContent },

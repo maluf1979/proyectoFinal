@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import listaService from '../service/listaService.js';
+import usuarioService from '../service/usuarioService.js';
 import { useLoginStore } from "../stores/login";
 
 export default {
@@ -27,11 +27,7 @@ export default {
   },
   methods: {
     async logear() {
-      // consultar api por usuario
-      // por hoy hardcodeamos
-      
-      const user = await listaService.getUsuario(this.usuario.email, this.usuario.passw)
-      
+      const user = await usuarioService.getUsuario(this.usuario.email, this.usuario.passw)
       try {
         if (user.length > 0) {
         this.login(user[0]);

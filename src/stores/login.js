@@ -19,6 +19,9 @@ export const useLoginStore = defineStore('login', {
         },
         hasPermissions(access) {
             return this.user.permiso == access
+        },
+        getUser(){
+            return this.user
         }
     },
 })

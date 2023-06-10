@@ -20,6 +20,11 @@ export default {
     IonNav,
     IonButton,
   },
+  methods: {
+    redirectToPaquetes() {
+      this.$router.push("/paquetes");
+    },
+  },
   data() {
     return {
       travelImages: [
@@ -59,9 +64,13 @@ export default {
           </ion-col>
           <ion-col size="10">
             <div class="navbar ion-text-justify">
-              <ion-button fill="clear" routerLink="/paquetes" class="custom-button">
+              <button
+                fill="clear"
+                @click="redirectToPaquetes"
+                class="custom-button"
+              >
                 Ver Ofertas
-              </ion-button>
+              </button>
             </div>
           </ion-col>
         </ion-row>
@@ -73,7 +82,7 @@ export default {
         <ion-row>
           <ion-col size="6" v-for="(image, index) in travelImages" :key="index">
             <ion-card>
-              <ion-card-content>
+              <ion-card-content @click="redirectToPaquetes" style="cursor: pointer">
                 <img
                   :src="image.url"
                   :alt="image.title"
@@ -114,23 +123,23 @@ export default {
   font-family: "Rubik", sans-serif;
   font-size: 16px;
   font-weight: bold;
-  color: violet; 
+  color: violet;
   text-shadow: 2px 2px 4px yellow;
-  background-color: yellow; 
-  border: 2px solid yellow; 
-  padding: 10px 20px; 
-  border-radius: 8px; 
-  margin-left: 1450px; 
-  transition: background-color 0.3s, color 0.3s; 
+  background-color: yellow;
+  border: 2px solid yellow;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-left: 1450px;
+  transition: background-color 0.3s, color 0.3s;
   display: flex;
   justify-content: flex-start;
   padding: 10px;
 }
 
 .custom-button:hover {
-  background-color: violet; 
-  color: yellow; 
-  border: 2px solid violet; 
+  background-color: violet;
+  color: yellow;
+  border: 2px solid violet;
 }
 .custom-title {
   font-family: "Rubik", sans-serif;

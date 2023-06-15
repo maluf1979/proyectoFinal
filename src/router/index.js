@@ -6,6 +6,7 @@ import NotFound from "../views/NotFound.vue";
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue';
 import ReservaView from '../views/ReservaView.vue';
+import MisReservas from '../views/MisReservasView.vue'
 import { useLoginStore } from '../stores/login'
 
 const router = createRouter({
@@ -44,10 +45,17 @@ const router = createRouter({
       path: "/logout",
       name: "logout",
       component: LogoutView,
-    },    {
+    },   
+    {
       path: "/reserva/:id",
       name: "reserva",
       component: ReservaView,
+      meta: { RequireAuth: true },
+    },
+    {
+      path: "/misReservas",
+      name: "misReservas",
+      component: MisReservas,
       meta: { RequireAuth: true },
     },
   ],

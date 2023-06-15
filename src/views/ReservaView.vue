@@ -1,24 +1,32 @@
 <template>
-  <ion-page>
-    <ion-content>
-      <ion-card-content>
-        <p>Destino: {{ reserva.Destino }}</p>
-        <p>Transporte: {{ reserva.Tipo }}</p>
-        <p>Fecha de partida: {{ reserva.FechaPartida }}</p>
-        <p>Fecha de regreso: {{ reserva.FechaRegreso }}</p>
-        <p>Duración en días: {{ reserva.CantidadDias }}</p>
-        <p>Precio: {{ reserva.Precio }}</p>
-      </ion-card-content>
+<ion-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col >
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>{{ this.reserva.Destino }}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <p>Transporte: {{ this.reserva.Tipo }}</p>
+                <p>Fecha de partida: {{ this.reserva.FechaPartida}}</p>
+                <p>Fecha de regreso: {{ this.reserva.FechaRegreso }}</p>
+                <p>Duración en días: {{ this.reserva.CantidadDias }}</p>
+                <p>Precio: {{ this.reserva.Precio }}</p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
-  </ion-page>
 </template>
 
 <script>
-import { IonPage, IonCardContent, IonContent } from "@ionic/vue";
-import listaService from "../service/paqueteService";
+import {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle, IonCardContent, IonButton, IonAlert} from "@ionic/vue";
+import paqueteService from "../service/paqueteService";
 
 export default {
-  components: { IonPage, IonCardContent, IonContent },
+  components: {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton, IonAlert,},
   data() {
     return {
       reserva: {Destino: "",Tipo: "",FechaPartida: "",FechaRegreso: "",CantidadDias: "", Precio: 0,},
@@ -29,13 +37,11 @@ export default {
     this.id = this.$route.params.id;
     this.cargarPaquete(this.id);
   },
+
   methods: {
     async cargarPaquete(id) {
       try {
-        console.log(id);
-
-        this.reserva = await listaService.buscarPaquete(id);
-        console.log(this.reserva);
+        this.reserva = await paqueteService.buscarPaquete(id);
       } catch (error) {
         alert("error de conexion");
       }

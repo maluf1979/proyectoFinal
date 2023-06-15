@@ -15,5 +15,14 @@ export default{
           } catch (error) {
             throw "Error de conexion";
           }
+    },
+    async cargarMisReservas(usuarioId){
+      try {
+        const response = await apiClient.get("/reservas?usuarioId=" + usuarioId);
+        //console.log(response.data);
+        return response.data;       
+      } catch (error) {
+        throw "Error de conexion";
+      }
     }
 }

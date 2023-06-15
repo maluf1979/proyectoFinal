@@ -134,10 +134,15 @@ export default {
   },
   methods: {
     async reservar(paquete) {
-      if (confirm("¿Este es el paquete que quieres reservar?")) {
-        await reservaService.crearReserva(paquete, this.user.id);
-        this.$router.push("/reserva/" + paquete.id);
+      if (this.isLogin) {
+          if (confirm("¿Este es el paquete que quieres reservar?")) {
+          await reservaService.crearReserva(paquete, this.user.id)
+          this.$router.push("/reserva/" + paquete.id);
+          } 
+        }else{
+          this.$router.push("/login")
       }
+      
     },
 
     filtrar() {

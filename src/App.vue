@@ -25,6 +25,7 @@ export default {
           <li><RouterLink to="/about">About</RouterLink></li>
           <li ><RouterLink to="/paquetes">Paquetes</RouterLink></li>
           <li v-if="!isLogin"><RouterLink to="/login">Login</RouterLink></li>
+          <li v-if="isLogin"><RouterLink to="/misReservas">Mis Reservas</RouterLink></li>
           <li v-if="isLogin" class="logout"><RouterLink to="/logout" @click="confirmLogout">Logout</RouterLink></li>
         </ul>
       </nav>

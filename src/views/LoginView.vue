@@ -6,11 +6,13 @@
       <label for="password">Password:</label>
       <input v-model="usuario.passw" type="password" id="password" required>
       <button type="submit">Login</button>
+      <router-link class="registro" to="/registrarse">Registrarse</router-link>
     </form>
   </div>
 </template>
 
 <script>
+import { RouterLink, RouterView } from "vue-router";
 import usuarioService from '../service/usuarioService.js';
 import { useLoginStore } from "../stores/login";
 
@@ -37,16 +39,14 @@ export default {
       }
       } catch (error) {
         alert(error)
-      }
-      
-      
-      
+      }  
     },
   },
 };
 </script>
 
 <style scoped>
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -61,6 +61,11 @@ export default {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+.registro{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 label {

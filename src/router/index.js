@@ -6,7 +6,8 @@ import NotFound from "../views/NotFound.vue";
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue';
 import ReservaView from '../views/ReservaView.vue';
-import MisReservas from '../views/MisReservasView.vue'
+import MisReservas from '../views/MisReservasView.vue';
+import Registrarse from '../views/RegistrarseView.vue'
 import { useLoginStore } from '../stores/login'
 
 const router = createRouter({
@@ -51,6 +52,11 @@ const router = createRouter({
       name: "reserva",
       component: ReservaView,
       meta: { RequireAuth: true },
+    },
+    {
+      path: "/registrarse",
+      name: "registrarse",
+      component: Registrarse,
     },
     {
       path: "/misReservas",

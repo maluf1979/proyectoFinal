@@ -15,5 +15,12 @@ export default{
         } catch (error) {
             throw "No encontrado"
         }
+      },
+      async agregarUsuario(usuario){
+        try {
+          await apiClient.post("/usuarios", usuario);
+        } catch (error) {
+          throw "No se pudo registrar"
+        }
       }
 }

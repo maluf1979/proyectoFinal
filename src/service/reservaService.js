@@ -24,5 +24,12 @@ export default{
       } catch (error) {
         throw "Error de conexion";
       }
+    },
+    async eliminarReserva(id) {
+      try {
+        await apiClient.delete("/reservas/" + id);
+      } catch (error) {
+        throw "Error de conexion";
+      }
     }
 }

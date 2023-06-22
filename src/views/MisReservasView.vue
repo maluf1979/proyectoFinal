@@ -13,6 +13,11 @@
                 <p>Fecha de regreso: {{ r.paquete.FechaRegreso }}</p>
                 <p>Duración en días: {{ r.paquete.CantidadDias }}</p>
                 <p>Precio: {{ r.paquete.Precio }}</p>
+                <ion-button
+                  color="danger"
+                  @click="eliminarReserva(r.id)"
+                  >Eliminar</ion-button
+                >
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -53,9 +58,21 @@ export default {
       } catch (error) {
         alert("error de conexion");
       }
-    } 
+    },
+    async eliminarReserva(id) {
+      try {
+        if (confirm("¿Estas seguro que quieres eliminar esta reserva?")) {
+          await reservaService.eliminarReserva(id);
+          this.cargarMisResevas();
+        }
+      } catch (error) {
+        alert("error de conexion");
+      }
+    }
 
   }
+  
+    
 
 }
 </script>

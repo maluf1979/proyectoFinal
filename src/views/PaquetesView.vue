@@ -32,6 +32,7 @@
                 <ion-button @click="reservar(p)">Reservar</ion-button>
                 <ion-button
                   v-if="hasPermissions('admin')"
+                  color="danger"
                   @click="eliminarPaquete(p.id)"
                   >Eliminar</ion-button
                 >

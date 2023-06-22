@@ -1,4 +1,6 @@
 <template>
+ <!--Componente de vista para la página de inicio de sesión. El componente muestra un formulario de inicio de sesión con 
+ campos para el correo electrónico y la contraseña, y un botón para enviar el formulario.-->
   <div class="login-container">
     <form class="login-form" @submit.prevent="logear">
       <label for="email">Email:</label>
@@ -12,7 +14,7 @@
 
 <script>
 import usuarioService from '../service/usuarioService.js';
-import { useLoginStore } from "../stores/login";
+import { useLoginStore } from "../stores/login"; //Utiliza la función useLoginStore para obtener acceso al store de Vuex llamado "login"
 
 export default {
   data() {
@@ -38,7 +40,9 @@ export default {
       } catch (error) {
         alert(error)
       }
-      
+  //Metodo: envia una solicitud de inicio de sesión al servicio usuarioService para verificar las credenciales del usuario. Si las 
+  //credenciales son correctas, se realiza el inicio de sesión llamando a login del store y se redirige al usuario a la página 
+  //"/paquetes". Si las credenciales son incorrectas, se muestra una alerta.   
       
       
     },

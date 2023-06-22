@@ -1,4 +1,5 @@
 <template>
+<!--Definición de un componente de vista llamado MisreservasView, que muestra una lista de reservas de viaje.-->
 <ion-content>
       <ion-grid>
         <ion-row>
@@ -42,13 +43,13 @@ export default {
         }
     },
     setup() {
-    const store = useLoginStore();
+    const store = useLoginStore(); //useLoginStore para obtener acceso al usuario actualmente autenticado
     const { user } = storeToRefs(store);
     return { user };
   },
     mounted() {
     //this.id = this.$route.params.id;
-    this.cargarMisResevas()
+    this.cargarMisResevas() //Se llama en el método mounted para cargar las reservas del usuario actual
   },
   methods:{
     async cargarMisResevas(){
@@ -59,11 +60,11 @@ export default {
         alert("error de conexion");
       }
     },
-    async eliminarReserva(id) {
+    async eliminarReserva(id) { //Eliminar una reserva cuando se hace clic en el botón "Eliminar" correspondiente.
       try {
         if (confirm("¿Estas seguro que quieres eliminar esta reserva?")) {
-          await reservaService.eliminarReserva(id);
-          this.cargarMisResevas();
+          await reservaService.eliminarReserva(id); //utiliza el servicio reservaService para realizar operaciones relacionadas con las reservas,
+          this.cargarMisResevas();                  //como cargar las reservas del usuario actual y eliminar una reserva específica.
         }
       } catch (error) {
         alert("error de conexion");

@@ -1,4 +1,5 @@
 <template>
+<!--Muestra una lista de paquetes de viaje y permite realizar operaciones como buscar, reservar, eliminar y modificar paquetes.-->
   <ion-page>
     <div class="search-container">
       <div class="search-input-container">
@@ -84,7 +85,7 @@ import reservaService from "../service/reservaService.js";
 import { searchOutline } from "ionicons/icons";
 
 import { storeToRefs } from "pinia";
-import { useLoginStore } from "../stores/login";
+import { useLoginStore } from "../stores/login"; //Para obtener acceso al usuario actualmente autenticado
 
 export default {
   components: {
@@ -100,9 +101,9 @@ export default {
     IonAlert,
     IonIcon,
   },
-  data() {
-    return {
-      filtro: "",
+  data() {                  //contiene las propiedades del componente, incluyendo filtro para el valor de búsqueda, paquetes para
+    return {                //almacenar la lista de paquetes de viaje, y paquete para almacenar los datos de un paquete seleccionado
+      filtro: "",           //o para agregar uno nuevo.
       paquetes: [],
       paquete: {
         Tipo: "",
@@ -115,17 +116,17 @@ export default {
       searchOutline: searchOutline,
     };
   },
-  mounted() {
+  mounted() { //Llama a la función cargarLista para cargar la lista de paquetes de viaje al iniciar el componente.
     this.cargarLista();
   },
-  setup() {
+  setup() { //Obtienen las referencias al estado del inicio de sesión (isLogin y user) y la función hasPermissions del almacén de inicio de sesión.
     const store = useLoginStore();
     const { isLogin, user } = storeToRefs(store);
     const { hasPermissions } = store;
     return { isLogin, hasPermissions, user };
   },
   computed: {
-    duracion() {
+    duracion() { //propiedad computada para calcular los dias entre las fechas del paquete.
       const fechaPartida = new Date(this.paquete.FechaPartida);
       const fechaRegreso = new Date(this.paquete.FechaRegreso);
       const duracionMs = fechaRegreso - fechaPartida;
@@ -134,7 +135,7 @@ export default {
     },
   },
   methods: {
-    async reservar(paquete) {
+    async reservar(paquete) { //Llama al metodo creaReserva de ReservaService y le pasa el paquete y el usuario. 
       if (this.isLogin) {
           if (confirm("¿Este es el paquete que quieres reservar?")) {
           await reservaService.crearReserva(paquete, this.user.id)
@@ -146,7 +147,7 @@ export default {
       
     },
 
-    filtrar() {
+    filtrar() { //Metodo para filtrar la busqueda de paquete por usuario. 
       this.paquetes = this.paquetes.filter((p) =>
         p.Destino.toLowerCase().includes(this.filtro.toLowerCase())
       );
@@ -155,7 +156,7 @@ export default {
       }
     },
 
-    async agregarDestino() {
+    async agregarDestino() { //llama a la función agregarElemento del servicio listaService para agregar el nuevo destino a la lista de paquetes de viaje.
       const paquete = { ...this.paquete };
       try {
         await listaService.agregarElemento(paquete);

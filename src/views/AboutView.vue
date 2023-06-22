@@ -1,3 +1,4 @@
+<!--Define el componente de vista para la página "Sobre nosotros" en una aplicación con Ionic.-->
 <template>
   <ion-page>
     <ion-header>
@@ -58,10 +59,10 @@
   </ion-page>
 </template>
 
-<script>
+<script> //Importa los componentes necesarios de Ionic
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardContent, IonImg } from "@ionic/vue";
 
-export default {
+export default { //Exporta el componente AboutView con la configuración requerida.
   components: {
     IonPage,
     IonHeader,

@@ -1,4 +1,6 @@
 <template>
+
+<!--muestra los detalles de una reserva de paquete de viaje.-->
 <ion-content>
       <ion-grid>
         <ion-row>
@@ -27,7 +29,8 @@ import paqueteService from "../service/paqueteService";
 
 export default {
   components: {IonPage,IonGrid,IonRow,IonCol,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton, IonAlert,},
-  data() {
+  
+  data() { //contiene las propiedades del componente, incluyendo reserva para almacenar los detalles de la reserva y id para almacenar el ID del paquete de viaje asociado a la reserva.
     return {
       reserva: {Destino: "",Tipo: "",FechaPartida: "",FechaRegreso: "",CantidadDias: "", Precio: 0,},
       id: 0,
@@ -38,8 +41,8 @@ export default {
     this.cargarPaquete(this.id);
   },
 
-  methods: {
-    async cargarPaquete(id) {
+  methods: { //se obtiene el ID del paquete de viaje desde los parámetros de ruta ($route.params.id) y se asigna a la propiedad id. Luego, se llama al método cargarPaquete para cargar los detalles de la reserva.
+    async cargarPaquete(id) { //utiliza el servicio paqueteService para buscar y obtener los detalles del paquete de viaje correspondiente al ID proporcionado. Los detalles se asignan a la propiedad reserva.
       try {
         this.reserva = await paqueteService.buscarPaquete(id);
       } catch (error) {

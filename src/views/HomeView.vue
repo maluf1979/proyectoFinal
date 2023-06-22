@@ -1,5 +1,5 @@
-<script>
-import {
+<script> //Define el componente de vista para la página de inicio de tu aplicación
+import { //Importa los componentes necesarios de Ionic
   IonPage,
   IonToolbar,
   IonHeader,
@@ -21,7 +21,7 @@ export default {
     IonButton,
   },
   methods: {
-    redirectToPaquetes() {
+    redirectToPaquetes() {// lleva a la ruta /paquetes al presionar el boton "Ver Ofertas".
       this.$router.push("/paquetes");
     },
   },

@@ -1,4 +1,6 @@
 <template>
+<!-- Componente de vista llamado LogoutView, que muestra un mensaje de confirmación para el cierre de sesión y un botón para 
+realizar el cierre de sesión.-->
   <div class="container">
     <h2 class="title">¿Esta seguro que desea abandonar el</h2>
     <button class="button" @click="logout">Log out</button>
@@ -6,7 +8,7 @@
 </template>
 
 <script>
-import { useLoginStore } from "../stores/login";
+import { useLoginStore } from "../stores/login"; //Utiliza el useLoginStore para obtener acceso a la función logout
 
 export default {
   setup() {
@@ -14,7 +16,7 @@ export default {
     const { logout } = store;
     return { logout };
   },
-  methods: {
+  methods: { //Al apretar el boton logout, se redirige al usuario a la pag principal.
     logout() {
       this.logout();
       this.$router.push("/");

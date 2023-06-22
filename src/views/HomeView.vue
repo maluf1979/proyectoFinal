@@ -87,6 +87,7 @@ export default {
                   :src="image.url"
                   :alt="image.title"
                   style="height: 500px; width: 900px"
+                  class="image-opacity"
                 />
               </ion-card-content>
             </ion-card>
@@ -146,5 +147,12 @@ export default {
   font-size: 50px;
   color: yellow;
   text-shadow: 2px 2px 4px violet;
+}
+.image-opacity {
+  transition: opacity 0.3s;
+}
+
+.image-opacity:hover {
+  opacity: 0.8;
 }
 </style>
